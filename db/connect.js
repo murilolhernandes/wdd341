@@ -1,7 +1,5 @@
 // const mongodb = require('mongodb').MongoClient;
 
-// const URI = "mongodb+srv://muriloluizhernandes_db_user:NGBxPIvDZpT8pte6@wdd341.h7bxm68.mongodb.net/?appName=WDD341";
-
 // const connectDB = async () => {
 //   await mongodb.connect(URI);
 //   console.log('db connected...');
