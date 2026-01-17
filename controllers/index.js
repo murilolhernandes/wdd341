@@ -1,5 +1,5 @@
 const mongodb = require('../db/connect');
-const path = require('path');
+// const path = require('path');
 const ObjectId = require('mongodb').ObjectId;
 
 const baseController = {}
@@ -9,10 +9,12 @@ const baseController = {}
 // };
 
 baseController.index = (req, res) => {
+  //#swagger.tags=['Hello World']
   res.send("Hello World");
 };
 
 baseController.getAll = async (req, res, next) => {
+  //#swagger.tags=['Contacts']
   const result = await mongodb.getDb().db().collection('contacts').find();
   result.toArray().then((contacts) => {
     res.setHeader('Content-Type', 'application/json');
@@ -21,6 +23,7 @@ baseController.getAll = async (req, res, next) => {
 };
 
 baseController.getSingle = async (req, res, next) => {
+  //#swagger.tags=['Contacts']
   const contactId = new ObjectId(req.params.id);
   const result = await mongodb.getDb().db().collection('contacts').find({ _id: contactId });
   result.toArray().then((contact) => {
@@ -30,6 +33,7 @@ baseController.getSingle = async (req, res, next) => {
 };
 
 baseController.addContact = async (req, res, next) => {
+  //#swagger.tags=['Contacts']
   const contact = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -41,11 +45,13 @@ baseController.addContact = async (req, res, next) => {
   if (result.acknowledged > 0) {
     res.status(204).send();
   } else {
-    res.status(500).json(response.error || 'Some error occurred while updating the user.');
+    res.status(500).json(result.error || 'Some error occurred while updating the user.');
+    res.status(500).json(result.error || 'Some error occurred while creating the contact.');
   }
 };
 
 baseController.updateContact = async (req, res, next) => {
+  //#swagger.tags=['Contacts']
   const contactId = new ObjectId(req.params.id);
   const contact = {
     firstName: req.body.firstName,
@@ -58,17 +64,20 @@ baseController.updateContact = async (req, res, next) => {
   if (result.modifiedCount > 0) {
     res.status(204).send();
   } else {
-    res.status(500).json(response.error || 'Some error occurred while updating the user.');
+    res.status(500).json(result.error || 'Some error occurred while updating the user.');
+    res.status(500).json(result.error || 'Some error occurred while updating the contact.');
   }
 };
 
 baseController.deleteContact = async (req, res, next) => {
+  //#swagger.tags=['Contacts']
   const contactId = new ObjectId(req.params.id);
   const result = await mongodb.getDb().db().collection('contacts').deleteOne({ _id: contactId });
   if (result.deletedCount > 0) {
     res.status(204).send();
   } else {
-    res.status(500).json(response.error || 'Some error occurred while updating the user.');
+    res.status(500).json(result.error || 'Some error occurred while updating the user.');
+    res.status(500).json(result.error || 'Some error occurred while deleting the contact.');
   }
 };
 
