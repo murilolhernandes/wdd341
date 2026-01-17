@@ -45,7 +45,6 @@ baseController.addContact = async (req, res, next) => {
   if (result.acknowledged > 0) {
     res.status(204).send();
   } else {
-    res.status(500).json(result.error || 'Some error occurred while updating the user.');
     res.status(500).json(result.error || 'Some error occurred while creating the contact.');
   }
 };
@@ -64,7 +63,6 @@ baseController.updateContact = async (req, res, next) => {
   if (result.modifiedCount > 0) {
     res.status(204).send();
   } else {
-    res.status(500).json(result.error || 'Some error occurred while updating the user.');
     res.status(500).json(result.error || 'Some error occurred while updating the contact.');
   }
 };
@@ -76,7 +74,6 @@ baseController.deleteContact = async (req, res, next) => {
   if (result.deletedCount > 0) {
     res.status(204).send();
   } else {
-    res.status(500).json(result.error || 'Some error occurred while updating the user.');
     res.status(500).json(result.error || 'Some error occurred while deleting the contact.');
   }
 };
