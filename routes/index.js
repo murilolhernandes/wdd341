@@ -1,7 +1,5 @@
 const express = require('express');
 
-// const indexController = require('../controllers');
-
 const router = express.Router();
 
 router.use('/', require('./swagger'));
